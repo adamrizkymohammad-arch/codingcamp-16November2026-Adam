@@ -1,0 +1,454 @@
+/* ============================================================
+   To-Do List Life Dashboard — style.css
+   Single stylesheet for the whole dashboard.
+   ============================================================ */
+
+/* ---------- Design tokens (light) ---------- */
+:root {
+  --bg: #f4f5f7;
+  --card-bg: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #f9fafb;
+  --text: #1f2933;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --placeholder: #9aa3af;
+
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-soft: #eef2ff;
+  --primary-soft-hover: #e0e7ff;
+  --on-primary: #ffffff;
+
+  --danger: #dc2626;
+  --danger-soft: #fef2f2;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+/* ---------- Design tokens (dark) ---------- */
+[data-theme="dark"] {
+  --bg: #141518;
+  --card-bg: #1e1f24;
+  --surface: #2a2b31;
+  --surface-hover: #34353c;
+  --text: #e8eaed;
+  --text-muted: #9aa0aa;
+  --border: #3a3b42;
+  --placeholder: #6b7280;
+
+  --primary: #818cf8;
+  --primary-hover: #a5b4fc;
+  --primary-soft: #2d2a4a;
+  --primary-soft-hover: #3a3768;
+  --on-primary: #1e1b4b;
+
+  --danger: #f87171;
+  --danger-soft: #3a2326;
+
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Reset / base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ---------- Layout grid ---------- */
+.dashboard {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "top   top"
+    "timer tasks"
+    "links tasks";
+}
+
+.card--greeting { grid-area: top; }
+.card--timer    { grid-area: timer; }
+.card--tasks    { grid-area: tasks; }
+.card--links    { grid-area: links; }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.card__title {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* ---------- Greeting card ---------- */
+.card--greeting {
+  position: relative;
+  text-align: center;
+  padding: 28px 20px;
+}
+
+.clock {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.date {
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.greeting-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.greeting {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.greeting-comma {
+  white-space: pre;
+}
+
+.name-slot {
+  display: inline;
+}
+
+.name-input {
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  max-width: 220px;
+  background: var(--surface);
+}
+
+.name-input::placeholder {
+  color: var(--placeholder);
+  font-weight: 400;
+}
+
+.name-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+/* ---------- Focus Timer card ---------- */
+.timer-display {
+  font-size: 2.75rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  margin: 8px 0 18px;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* ---------- Forms (shared) ---------- */
+.task-form,
+.links-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.task-form .input {
+  flex: 1 1 auto;
+}
+
+.links-form .input {
+  flex: 1 1 140px;
+}
+
+/* ---------- Inputs ---------- */
+.input {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--surface);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input::placeholder {
+  color: var(--placeholder);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn:hover {
+  background: var(--surface-hover);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn--primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* ---------- Icon buttons (theme toggle, name edit) ---------- */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.icon-btn:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.icon-btn:active {
+  transform: translateY(1px);
+}
+
+.icon {
+  display: block;
+}
+
+/* theme toggle sits in the top-right of the greeting card */
+.theme-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+/* show the icon for the mode you can switch TO */
+.theme-toggle .icon--sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon--sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon--moon { display: none; }
+
+/* ---------- Task list ---------- */
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-item__text {
+  flex: 1;
+}
+
+.task-item--done .task-item__text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* ---------- Form messages (duplicate-task hint, etc.) ---------- */
+.form-msg {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  color: var(--danger);
+}
+
+/* ---------- Quick links ---------- */
+.links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  border: 1px solid var(--primary-soft);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.link-button:hover {
+  background: var(--primary-soft-hover);
+  border-color: var(--primary-soft-hover);
+}
+
+.link-remove {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+
+.link-remove:hover {
+  color: var(--danger);
+}
+
+/* ---------- Task item controls ---------- */
+.task-item__checkbox {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--primary);
+  flex-shrink: 0;
+}
+
+.task-item__input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.task-item__input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.task-item__edit,
+.task-item__delete {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.task-item__edit:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.task-item__delete:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* ---------- Link entries ---------- */
+.link-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "top"
+      "timer"
+      "tasks"
+      "links";
+  }
+
+  .clock {
+    font-size: 2.25rem;
+  }
+
+  .timer-display {
+    font-size: 2.25rem;
+  }
+}
